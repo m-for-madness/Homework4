@@ -23,26 +23,39 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-public class Driver {
-    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+
+public class Driver extends Configured implements Tool {
+    public static void main(String[] args) {
+        try {
+            int status = ToolRunner.run(new Driver(), args);
+            System.exit(status);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public int run(String[] args) throws Exception {
         if (args.length != 3) {
             System.err.printf("Usage: %s [generic options] <input1> <input2> <output>\n", new String("Main.class"));
+            return -1;
         }
         Configuration c = new Configuration();
-        Job job = new Job(c , "Bidding price task" );
+        Job job = Job.getInstance();
         job.setJarByClass(Driver.class);
-
+        job.setJobName("Bidding price task");
         MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, MapperForData.class);
         MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, MapperForCities.class);
+
         FileOutputFormat.setOutputPath(job, new Path(args[2]));
 
         job.setCombinerClass(CombinerForCityData.class);
+        
         job.setReducerClass(ReducerForCitiesData.class);
 
         job.setPartitionerClass(KeyPartitioner.class);
         job.setGroupingComparatorClass(GroupComparator.class);
-
-
 
         job.setCombinerKeyGroupingComparatorClass(GroupComparator.class);
 
@@ -51,7 +64,6 @@ public class Driver {
 
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        System.exit(job.waitForCompletion(true) ? 0 : 1);
+        return job.waitForCompletion(true) ? 0 : 1;
     }
-
 }

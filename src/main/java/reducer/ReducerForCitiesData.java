@@ -20,8 +20,9 @@ public class ReducerForCitiesData extends Reducer<CustomKey, Text, Text, IntWrit
         }
         if (count != 0)
         {
-            context.getCounter("q","---REDUCER").increment(1);
+
             context.write(name, new IntWritable(count));
         }
+        context.getCounter("q","---REDUCER").increment(1);
     }
 }
