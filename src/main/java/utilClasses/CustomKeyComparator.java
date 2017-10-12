@@ -30,6 +30,6 @@ public class CustomKeyComparator extends WritableComparator {
     public int compare(WritableComparable w1, WritableComparable w2) {
         CustomKey ck = (CustomKey) w1;
         CustomKey ck2 = (CustomKey) w2;
-        return CustomKey.compare(ck.getUserId(), ck2.getUserId());
+        return CustomKey.compare(ck.getCityId(), ck2.getCityId());
     }
 }

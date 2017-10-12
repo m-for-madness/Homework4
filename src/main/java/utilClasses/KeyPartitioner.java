@@ -7,7 +7,7 @@ public class KeyPartitioner extends Partitioner<CustomKey, Text> {
 
 	@Override
 	public int getPartition(CustomKey key, Text value, int numPartitions) {
-		return (key.getUserId().hashCode() & Integer.MAX_VALUE) % numPartitions;
+		return (key.getCityId().hashCode() & Integer.MAX_VALUE) % numPartitions;
 	}
 
 }

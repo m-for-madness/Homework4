@@ -10,16 +10,18 @@ public class CustomKey implements WritableComparable<CustomKey> {
     private Integer cityID;
     private Integer dataSetType;
 
+
     public CustomKey() {
+
     }
 
-    public CustomKey(Integer userId, Integer dataSetType) {
+    public CustomKey(Integer cityID, Integer dataSetType) {
         super();
-        this.cityID = userId;
+        this.cityID = cityID;
         this.dataSetType = dataSetType;
     }
 
-    public Integer getUserId() {
+    public Integer getCityId() {
         return cityID;
     }
 
@@ -72,7 +74,7 @@ public class CustomKey implements WritableComparable<CustomKey> {
 
     @Override
     public int compareTo(CustomKey o) {
-        int returnValue = compare(cityID, o.getUserId());
+        int returnValue = compare(cityID, o.getCityId());
         if (returnValue != 0) {
             return returnValue;
         }
@@ -85,7 +87,7 @@ public class CustomKey implements WritableComparable<CustomKey> {
 
     @Override
     public String toString() {
-        return "UtilityClasses.CustomKey [userId=" + cityID + ", dataSetType=" + dataSetType + "]";
+        return "util.CustomKey [userId=" + cityID + ", dataSetType=" + dataSetType + "]";
     }
-
 }
+
