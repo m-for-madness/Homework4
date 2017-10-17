@@ -7,7 +7,7 @@ import utilClasses.CustomKey;
 
 import java.io.IOException;
 
-public class MapperForData {
+public class MapperForDataTest {
     MapDriver<LongWritable, Text, CustomKey, Text> mapDataDriver;
 
     @Before
